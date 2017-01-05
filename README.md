@@ -49,6 +49,10 @@ wr.writeItem("New item from Gittoks API", project_id);
 
 ***TodoistReader***: read all items (or all items in project)
 ```java
+String token = "Your todoist token here";
+
+TodoistReader tr = new TodoistReader(token);
+
 try {
     ArrayList<TodoistItem> items = tr.readItems();
     for (TodoistItem item :

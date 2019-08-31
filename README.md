@@ -13,7 +13,7 @@ Download project and drag all files in the `src` folder to your Java project in 
 
 ## How to use
 
-***TodoistReader***: read all items
+***Todoist Reader***: read all items
 ```java
 String token = "Your todoist token here";
 

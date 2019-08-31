@@ -105,6 +105,8 @@ try {
 
 
 
-#### Info
+## Repo/API Info
 
 Feel free to use, fork, and modify the code in this repo as you'd like. If you have any questions, [you can contact me](https://henrystern.nyc/contact).
+
+Lots of helpful info, from how to find your Todoist API token to the ins and outs of the API, available in [Todoist's official documentation here](https://developer.todoist.com/sync/v8).

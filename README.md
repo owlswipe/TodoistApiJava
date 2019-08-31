@@ -28,6 +28,15 @@ try {
     e.printStackTrace();
 }
 ```
+
+**OUTPUT**
+```
+TodoistProjectLog, Contact dog walker
+TodoistProjectLog, Finish Todoist library
+TodoistProjectLog, Charge battery for camera
+TodoistProjectLog, Set up password manager
+.....
+```
 <hr>
 
 ***Todoist Reader***: read projects
@@ -46,10 +55,10 @@ try {
 
 **OUTPUT**
 ```
-Inbox : 125065255 : 1
-Project 1 : 125065256 : 1
-Project 2 : 125065257 : 1
-Project 3 : 125065258 : 2
+TodoistProjectLog, Inbox : 125065255 : 1
+TodoistProjectLog, Project 1 : 125065256 : 1
+TodoistProjectLog, Project 2 : 125065257 : 1
+TodoistProjectLog, Project 3 : 125065258 : 2
 .....
 ```
 <hr>

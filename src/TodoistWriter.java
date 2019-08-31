@@ -1,11 +1,13 @@
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Random;
@@ -18,30 +20,36 @@ public class TodoistWriter {
 
     public TodoistWriter(String token){
         this.token = token;
-        way = "https://todoist.com/API/v7/sync?token=" + this.token + "&commands=";
+        way = "https://todoist.com/API/v8/sync?token=" + this.token + "&commands=";
     }
 
-    public String writeItem(String content, long project_id) throws IOException {
+    public String writeItem(String content, Object dueDateString, int priority, Boolean setReminder, long project_id) throws IOException, JSONException {
         JSONObject item = new JSONObject();
+        JSONObject date = new JSONObject();
+        date.put("string", dueDateString);
         JSONObject characteristics = new JSONObject();
         characteristics.put("content", content);
         characteristics.put("project_id", project_id);
+        characteristics.put("due", date);
+        characteristics.put("priority", priority);
+        characteristics.put("auto_reminder", String.valueOf(setReminder));
         item.put("args", characteristics);
         item.put("type", "item_add");
         item.put("temp_id", createUUIDorTEMP_ID());
         item.put("uuid", createUUIDorTEMP_ID());
         JSONArray jsonArray = new JSONArray();
-        jsonArray.add(item);
+        jsonArray.put(item);
         String request = jsonArray.toString();
         request = encoderRequest(request);
         URL url = new URL(way + request);
+        Log.d("TodoistProjectLog", "Sending request to " + String.valueOf(url).replaceAll(token, "[redactedToken]"));
         reader = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), "UTF-8"));
         String answerFromServer = getServerAnswer(reader);
         reader.close();
         return answerFromServer;
     }
 
-    public String writeProject(String name) throws IOException {
+    public String writeProject(String name) throws IOException, JSONException {
         JSONObject project = new JSONObject();
         JSONObject characteristics = new JSONObject();
         characteristics.put("name", name);
@@ -50,7 +58,7 @@ public class TodoistWriter {
         project.put("temp_id", createUUIDorTEMP_ID());
         project.put("uuid", createUUIDorTEMP_ID());
         JSONArray jsonArray = new JSONArray();
-        jsonArray.add(project);
+        jsonArray.put(project);
         String request = jsonArray.toString();
         request = encoderRequest(request);
         URL url = new URL(way + request);
